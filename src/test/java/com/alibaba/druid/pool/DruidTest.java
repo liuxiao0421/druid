@@ -71,17 +71,18 @@ public class DruidTest {
     }
 
     public static void initDS(String connectURI) {
-        initDS(connectURI, "root", "12345", "com.mysql.jdbc.Driver", 40, 40, 40, 10, 5);
+//        initDS(connectURI, "root", "12345", "com.mysql.jdbc.Driver", 40, 40, 40, 10, 5);
+        initDS(connectURI, "root", "wdsr@0421", "com.mysql.cj.jdbc.Driver", 40, 40, 40, 10, 5);
     }
 
     public static void main(String[] args) throws IOException, SQLException {
 
-        DruidTest db = new DruidTest("jdbc:mysql://a.b.c.d:8066/amoeba");
+        DruidTest db = new DruidTest("jdbc:mysql://localhost:3306/test");
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
-        FileWriter fileWriter = new FileWriter("D:\\data.txt");
+        FileWriter fileWriter = new FileWriter("/Users/u51/Desktop/data.txt");
         try {
             conn = db.getConn();
         } catch (Exception e) {
@@ -93,7 +94,8 @@ public class DruidTest {
             try {
                 stmt = conn.createStatement();
                 Date start = new Date();
-                rs = stmt.executeQuery("select * from offer where member_id = 'forwd251'");
+//                rs = stmt.executeQuery("select * from offer where member_id = 'forwd251'");
+                rs = stmt.executeQuery("select lfPartyId,partyName from lfParty where lfPartyId =1");
                 Date end = new Date();
                 sum = sum + (end.getTime() - start.getTime());
                 fileWriter.write(String.valueOf((end.getTime() - start.getTime())));
